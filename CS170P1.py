@@ -1,3 +1,4 @@
+from inspect import currentframe
 import sys
 import time
 
@@ -48,7 +49,26 @@ def misplaced(puzzle):
             if puzzle[i][j] != 0 and puzzle[i][j] != goalPuzzle[i][j]:
                 sum += 1
     return sum
- 
+
+def manhattanD(puzzle):
+    rows = 0
+    columns = 0
+    gRows = 0
+    gColumns = 0
+    fCount = 0
+
+    for i in range(1,9):
+        for j in range(3):
+            for k in range(3):
+                if i == puzzle[j][k]:
+                    rows = j
+                    columns = k
+                if i == goalPuzzle[j][k]:
+                    gRows = j
+                    gColumns = k
+        fCount+= abs(gRows - rows) + abs(gColumns - columns)
+    return fCount
+
        
     
 if __name__ == '__main__':
