@@ -41,6 +41,15 @@ def userStrategy():
     userStrategyC = input(' ')
     return userStrategyC
 
+def misplaced(puzzle):
+    sum = 0
+    for i in range(3):
+        for j in range(3):
+            if puzzle[i][j] != 0 and puzzle[i][j] != goalPuzzle[i][j]:
+                sum += 1
+    return sum
+ 
+       
     
 if __name__ == '__main__':
             main()
