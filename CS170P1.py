@@ -1,6 +1,6 @@
-
 import sys
 import time
+import copy
 
 goalPuzzle = (['1', '2', '3', ], ['4', '5', '6'], ['7', '8', '0'])
 
@@ -69,7 +69,50 @@ def manhattanD(puzzle):
         fCount+= abs(gRows - rows) + abs(gColumns - columns)
     return fCount
 
+class node:
+    def __init__(self, heuristic, puzzle, depth):
+        self.puzzle = puzzle
+        #puzzle is just our puzzle
+        self.depth = depth
+        self.heursitic = heuristic
+        self.cost = depth + heuristic 
+        #depth is the cost of how many nodes have been explored from start to current
+        #Heuristic is the estimate on how much itll cost to get to the goal cost
+        #Together the lowest cost value will be picked and that is how the algo will figure out how to get to goal state fastest and cheapest
+
+
+def expandedNode(curr):
+    depth = curr.depth + 1
+    rows = 0
+    columns = 0
+    for i in range(3):
+        for j in range(3):
+            if [i][j] == 0:
+                row = i
+                columns = j #We want to see where the 0 aka the blank space is so we look for it
+                            #and set our rows and columns acoordingly 
+    if columns > 0:
+        left = copy.deepcopy(curr.puzzle)
+        left[row][columns] = left[row][columns - 1]
+        left[row][columns - 1] = 0
+    
+    if rows > 0:
+        top = copy.deepcopy(curr.puzzle)
+        top[row][columns] = left[row][columns - 1]
+        top[row][columns - 1] = 0
        
+    if columns > 2:
+        right = copy.deepcopy(curr.puzzle)
+        right[row][columns] = right[row][columns - 1]
+        right[row][columns - 1] = 0
+      
+    if rows > 2:
+        bottom = copy.deepcopy(curr.puzzle)
+        bottom[row][columns] = bottom[row][columns - 1]
+        bottom[row][columns - 1] = 0
+        bottomNode = node(0,bottom, depth)
+       
+
     
 if __name__ == '__main__':
             main()
